@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  /* 100dvh with a min-height floor so the layout fills the viewport in both
+     orientations without assuming fixed iPad sizes. */
+  min-height: 100dvh;
+}
+
+#root {
+  /* Max-width container keeps lines readable on large screens; reflows for portrait
+     and landscape via the flex/grid layouts inside each screen. */
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+body {
+  font-family: theme("fontFamily.rounded");
+  background: theme("colors.fondo.suave");
+  color: #1f2937;
+  /* Respect device safe areas (notch / home indicator). viewport-fit=cover is set
+     in index.html. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /* No horizontal scroll, ever. */
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Touch tuning for iPad/Safari: prevent selection gestures conflicting with scroll,
+   remove the tap highlight, and keep taps snappy. Applies to every interactive element. */
+button,
+[role="button"],
+input,
+.interactive {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+[role="button"],
+.interactive {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Honor the user's reduced-motion preference globally as a safety net; component-level
+   logic (useReducedMotion) already tailors animations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

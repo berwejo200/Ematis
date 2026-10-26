@@ -1,0 +1,9 @@
+node_modules
+dist
+*.local
+.DS_Store
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# Internal agent/design artifacts (not part of the game)
+.agents/
